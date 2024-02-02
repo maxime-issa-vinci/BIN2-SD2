@@ -5,7 +5,7 @@ public class Ordonnancement {
 	public static final int NIVEAU_PRIORITE_MAX=5;
 	private HashMap<Integer, LinkedList<Tache>> mapPriorite = new HashMap<>();
 
-
+//     
 	public Ordonnancement(){
 
 	}
