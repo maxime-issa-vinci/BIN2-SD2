@@ -1,12 +1,11 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ChoixOptions {
 	
 	// associe le nom d'une option avec son objet Option correspondant
 	private Map<String, Option> options;
 	// ajouter ici les autres attributs
-	
+	private Map<Etudiant, List<String>> preferences;
 	
 	//constructeur prenant un entier et une suite de string en param�tres
 	//ces string repr�sentent les noms des diff�rentes options possibles
@@ -18,6 +17,7 @@ public class ChoixOptions {
 			String nomOption = nomsOption[i];
 			options.put(nomOption, new Option(nomOption, nbEtudiantsParOption));
 		}
+		preferences = new TreeMap<>(Comparator.comparing(Etudiant::getMoyenne).reversed().thenComparing(Etudiant::getNom));
 		// initialiser les nouveaux attributs
 	}
 
@@ -25,6 +25,7 @@ public class ChoixOptions {
 	// il ne faut pas v�rifier que ces choix soient valides
 	public void ajouterPreferences(Etudiant etu, String choix1, String choix2,
 			String choix3) {
+		preferences.put(etu, new ArrayList<>(Arrays.asList(choix1, choix2, choix3)));
 	}
 
 	// cette m�thode est appel�e apr�s que les �tudiants aient donn� leurs pr�f�rences
@@ -34,6 +35,13 @@ public class ChoixOptions {
 	// il faut recourir au troisi�me choix.
 	// Cette m�thode doit faire appel � la m�thode inscrireEtudiant de la classe Option.
 	public void attribuerOptions() {
+		for(Etudiant etudiant: preferences.keySet()){
+			if(!options.get(preferences.get(etudiant).get(0)).inscrireEtudiant(etudiant)){
+				if(!options.get(preferences.get(etudiant).get(1)).inscrireEtudiant(etudiant)){
+					options.get(preferences.get(etudiant).get(2)).inscrireEtudiant(etudiant);
+				}
+			}
+		}
 	}
 	
 	public String toString(){

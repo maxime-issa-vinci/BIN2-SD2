@@ -9,6 +9,8 @@ import static java.time.temporal.ChronoUnit.MILLIS;
 public class LocationPatins {
 
 	private List<Integer> liste= new ArrayList<>();
+
+	private HashMap<Integer, LocalTime> map = new HashMap<>();
 	public LocationPatins(int[] casiers) {
 		for (int i = 0; i<casiers.length; i++){
 			liste.add(casiers[i]);
@@ -33,6 +35,7 @@ public class LocationPatins {
 
 	public double libererCasier(int numeroCasier) {
 		//a completer
+		return 0.1;
 	}
 
 }
